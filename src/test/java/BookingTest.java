@@ -74,4 +74,21 @@ public class BookingTest {
                 .and()
                         .body("results", hasSize(greaterThan(0)));
     }
+
+    @Test
+    public void  CreateBooking_WithValidData_returnOk(){
+
+        Booking test = booking;
+        given().config(RestAssured.config().logConfig(logConfig().enableLoggingOfRequestAndResponseIfValidationFails()))
+                .contentType(ContentType.JSON)
+                .when()
+                        .body(booking)
+                        .post("/booking")
+                .then()
+                        .body(matchesJsonSchemaInClasspath("createBookingRequestSchema.json"))
+                .and()
+                        .assertThat()
+                        .statusCode(200)
+                        .contentType(ContentType.JSON).and().time(lessThan(2000L));
+    }
 }
