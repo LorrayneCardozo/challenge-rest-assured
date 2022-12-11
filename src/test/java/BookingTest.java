@@ -9,18 +9,14 @@ import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 
-import static io.restassured.RestAssured.enableLoggingOfRequestAndResponseIfValidationFails;
 import static io.restassured.RestAssured.given;
 import static io.restassured.config.LogConfig.logConfig;
+import static io.restassured.module.jsv.JsonSchemaValidator.*;
+import static org.hamcrest.Matchers.*;
 
 public class BookingTest {
     public static Faker faker;
@@ -63,5 +59,19 @@ public class BookingTest {
                                         .extract().response();
         Assertions.assertNotNull(response);
         Assertions.assertEquals(200, response.statusCode());
+    }
+
+    @Test
+    public void  getAllBookingsByUserFirstName_BookingExists_returnOk(){
+        request
+                .when()
+                        .queryParam("firstName", "Carol")
+                        .get("/booking")
+                .then()
+                        .assertThat()
+                        .statusCode(200)
+                        .contentType(ContentType.JSON)
+                .and()
+                        .body("results", hasSize(greaterThan(0)));
     }
 }
