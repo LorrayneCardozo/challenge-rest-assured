@@ -76,9 +76,8 @@ public class BookingTest {
     }
 
     @Test
-    public void  CreateBooking_WithValidData_returnOk(){
+    public void createBooking_WithValidData_returnOk(){
 
-        Booking test = booking;
         given().config(RestAssured.config().logConfig(logConfig().enableLoggingOfRequestAndResponseIfValidationFails()))
                 .contentType(ContentType.JSON)
                 .when()
@@ -89,6 +88,17 @@ public class BookingTest {
                 .and()
                         .assertThat()
                         .statusCode(200)
-                        .contentType(ContentType.JSON).and().time(lessThan(2000L));
+                        .contentType(ContentType.JSON).and().time(lessThan(5000L));
+    }
+
+    @Test
+    public void getBooking_InvalidId_returnFail(){
+        Response response = request
+                                    .when()
+                                        .get("/booking/-1")
+                                    .then()
+                                        .extract().response();
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(404, response.statusCode());
     }
 }
