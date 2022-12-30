@@ -62,7 +62,7 @@ public class BookingTest {
     }
 
     @Test
-    public void  getAllBookingsByUserFirstName_BookingExists_returnOk(){
+    void getAllBookingsByUserFirstName_BookingExists_returnOk(){
         request
                 .when()
                         .queryParam("firstName", "Carol")
@@ -76,7 +76,7 @@ public class BookingTest {
     }
 
     @Test
-    public void createBooking_WithValidData_returnOk(){
+    void createBooking_WithValidData_returnOk(){
 
         given().config(RestAssured.config().logConfig(logConfig().enableLoggingOfRequestAndResponseIfValidationFails()))
                 .contentType(ContentType.JSON)
@@ -92,7 +92,7 @@ public class BookingTest {
     }
 
     @Test
-    public void getBooking_InvalidId_returnFail(){
+    void getBooking_InvalidId_returnFail(){
         Response response = request
                                     .when()
                                         .get("/booking/-1")
@@ -101,4 +101,18 @@ public class BookingTest {
         Assertions.assertNotNull(response);
         Assertions.assertEquals(404, response.statusCode());
     }
+
+    @Test
+    void postAuth_returnOk() {
+        given()
+                    .config(RestAssured.config().logConfig(logConfig().enableLoggingOfRequestAndResponseIfValidationFails()))
+                    .contentType(ContentType.JSON)
+                .when()
+                    .body("{ \"username\" : \"admin\", \"password\" : \"password123\"}")
+                    .post("/auth")
+                .then()
+                    .assertThat()
+                    .statusCode(200);
+    }
+
 }
