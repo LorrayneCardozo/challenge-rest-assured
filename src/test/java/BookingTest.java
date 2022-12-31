@@ -3,6 +3,7 @@ import Entities.BookingDates;
 import Entities.User;
 import com.github.javafaker.Faker;
 import io.restassured.RestAssured;
+import io.restassured.authentication.PreemptiveBasicAuthScheme;
 import io.restassured.filter.log.ErrorLoggingFilter;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -18,6 +19,7 @@ import static io.restassured.config.LogConfig.logConfig;
 import static io.restassured.module.jsv.JsonSchemaValidator.*;
 import static org.hamcrest.Matchers.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BookingTest {
     public static Faker faker;
     private static RequestSpecification request;
@@ -51,6 +53,7 @@ public class BookingTest {
     }
 
     @Test
+    @Order(1)
     void getAllBookingsById_returnOk(){
         Response response = request
                                     .when()
@@ -62,6 +65,7 @@ public class BookingTest {
     }
 
     @Test
+    @Order(2)
     void getAllBookingsByUserFirstName_BookingExists_returnOk(){
         request
                 .when()
@@ -76,6 +80,7 @@ public class BookingTest {
     }
 
     @Test
+    @Order(3)
     void createBooking_WithValidData_returnOk(){
 
         given().config(RestAssured.config().logConfig(logConfig().enableLoggingOfRequestAndResponseIfValidationFails()))
@@ -92,6 +97,7 @@ public class BookingTest {
     }
 
     @Test
+    @Order(4)
     void getBooking_InvalidId_returnFail(){
         Response response = request
                                     .when()
@@ -103,7 +109,8 @@ public class BookingTest {
     }
 
     @Test
-    void postAuth_returnOk() {
+    @Order(5)
+    void createToken_returnOk() {
         given()
                     .config(RestAssured.config().logConfig(logConfig().enableLoggingOfRequestAndResponseIfValidationFails()))
                     .contentType(ContentType.JSON)
@@ -115,4 +122,31 @@ public class BookingTest {
                     .statusCode(200);
     }
 
+    @Test
+    @Order(6)
+    void updateBooking_returnOk(){
+        int idBooking = request
+                .when()
+                    .body(booking)
+                    .post("/booking")
+                .then()
+                    .extract().response().jsonPath().get("bookingid");
+
+        user.setFirstname("Lorrayne");
+        booking.setFirstname(user.getFirstname());
+
+        PreemptiveBasicAuthScheme authScheme = new PreemptiveBasicAuthScheme();
+        authScheme.setUserName("admin");
+        authScheme.setPassword("password123");
+        RestAssured.authentication = authScheme;
+
+        given()
+                .config(RestAssured.config().logConfig(logConfig().enableLoggingOfRequestAndResponseIfValidationFails()))
+                .contentType(ContentType.JSON)
+                .when()
+                    .body(booking)
+                    .put("/booking/"+idBooking)
+                .then()
+                    .assertThat().statusCode(200);
+    }
 }
