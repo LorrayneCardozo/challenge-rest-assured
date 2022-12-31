@@ -149,4 +149,32 @@ public class BookingTest {
                 .then()
                     .assertThat().statusCode(200);
     }
+
+    @Test
+    @Order(7)
+    void partialUpdateBooking_returnOk(){
+        int idBooking = request
+                .when()
+                    .body(booking)
+                    .post("/booking")
+                .then()
+                    .extract().response().jsonPath().get("bookingid");
+
+        PreemptiveBasicAuthScheme authScheme = new PreemptiveBasicAuthScheme();
+        authScheme.setUserName("admin");
+        authScheme.setPassword("password123");
+        RestAssured.authentication = authScheme;
+
+        given()
+                .config(RestAssured.config().logConfig(logConfig().enableLoggingOfRequestAndResponseIfValidationFails()))
+                .contentType(ContentType.JSON)
+                .when()
+                    .body("{\n" +
+                            "    \"firstname\" : \"Lorrayne\",\n" +
+                            "    \"lastname\" : \"Cardozo\"\n" +
+                            "}")
+                    .patch("/booking/"+idBooking)
+                .then()
+                    .assertThat().statusCode(200);
+    }
 }
