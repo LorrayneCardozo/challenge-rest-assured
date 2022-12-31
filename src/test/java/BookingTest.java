@@ -177,4 +177,28 @@ public class BookingTest {
                 .then()
                     .assertThat().statusCode(200);
     }
+
+    @Test
+    @Order(8)
+    void deleteBooking_returnOk(){
+        int idBooking = request
+                .when()
+                    .body(booking)
+                    .post("/booking")
+                .then()
+                    .extract().response().jsonPath().get("bookingid");
+
+        PreemptiveBasicAuthScheme authScheme = new PreemptiveBasicAuthScheme();
+        authScheme.setUserName("admin");
+        authScheme.setPassword("password123");
+        RestAssured.authentication = authScheme;
+
+        given()
+                .config(RestAssured.config().logConfig(logConfig().enableLoggingOfRequestAndResponseIfValidationFails()))
+                .contentType(ContentType.JSON)
+                .when()
+                    .delete("/booking/"+idBooking)
+                .then()
+                    .assertThat().statusCode(201);
+    }
 }
