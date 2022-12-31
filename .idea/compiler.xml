@@ -6,7 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="challenge-rest-assured" />
+        <module name="api-automation-tests-challenge-rest-assured" />
       </profile>
     </annotationProcessing>
   </component>
