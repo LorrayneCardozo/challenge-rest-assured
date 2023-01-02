@@ -57,40 +57,40 @@ O servidor estará rodando na porta ``localhost:3000``.
         
 - ``/users``
 
-    Apenas o usuário consegue ler, alterar ou deletar suas informações.
+    Apenas o próprio usuário consegue ler, alterar ou deletar suas informações.
 
-    | Campo     | Tipo   | Descrição                         |
-    | :-        | :-     | :-                                |
-    | id        | Number | Identificador único de um usuário |
-    | name      | String | Primeiro nome do usuário          |
-    | lastname  | String | Sobrenome do usuário              |
-    | birthdate | Date   | Data de nascimento do usuário     |
-    | email     | String | E-mail do usuário                 |
-    | password  | String | Senha criada pelo usuário         |
+    | **Campo** | **Tipo** | **Descrição**                     |
+    | :-        | :-       | :-                                |
+    | id        | Number   | Identificador único de um usuário |
+    | name      | String   | Primeiro nome do usuário          |
+    | lastname  | String   | Sobrenome do usuário              |
+    | birthdate | Date     | Data de nascimento do usuário     |
+    | email     | String   | E-mail do usuário                 |
+    | password  | String   | Senha criada pelo usuário         |
                 
 - ``/payment``
 
     Ninguém pode alterar ou deletar, mas todos podem ler.
     
-    | Campo     | Tipo   | Descrição                                   |
-    | :-        | :-     | :-                                          |
-    | id        | Number | Identificador único de um tipo de pagamento |
-    | type      | String | Tipo do pagamento                           |
+    | **Campo** | **Tipo** | **Descrição**                               |
+    | :-        | :-       | :-                                          |
+    | id        | Number   | Identificador único de um tipo de pagamento |
+    | type      | String   | Tipo do pagamento                           |
 
 - ``/booking``
 
     Todos podem ler, mas apenas o usuário (userId) pode alterar ou deletar dados.
 
-    | Campo           | Tipo    | Descrição                                             |
-    | :-              | :-      | :-                                                    |
-    | id              | Number  | Identificador único de um booking                     |
-    | userId          | Number  | Identificador único do usuário pertencente            |
-    | payment         | Object  | Subobjeto que contém as informações de pagamento      |
-    | paymentid       | Number  | Identificador único de um tipo de pagamento           |
-    | totalprice      | Number  | Preço total do booking                                |
-    | depositpaid     | Boolean | Se o depósito foi pago ou não                         |
-    | bookingdates    | Object  | Subobjeto que contém as datas de check-in e check-out |
-    | checkin         | Boolean | Data em que o hóspede está fazendo check-in           |
-    | checkout        | Boolean | Data em que o hóspede está fazendo check-out          |
-    | additionalneeds | Boolean | Qualquer outra necessidade que o hóspede tenha        |
+    | **Campo**       | **Tipo** | **Descrição**                                         |
+    | :-              | :-       | :-                                                    |
+    | id              | Number   | Identificador único de um booking                     |
+    | userId          | Number   | Identificador único do usuário pertencente            |
+    | payment         | Object   | Subobjeto que contém as informações de pagamento      |
+    | paymentid       | Number   | Identificador único de um tipo de pagamento           |
+    | totalprice      | Number   | Preço total do booking                                |
+    | depositpaid     | Boolean  | Se o depósito foi pago ou não                         |
+    | bookingdates    | Object   | Subobjeto que contém as datas de check-in e check-out |
+    | checkin         | Boolean  | Data em que o hóspede está fazendo check-in           |
+    | checkout        | Boolean  | Data em que o hóspede está fazendo check-out          |
+    | additionalneeds | Boolean  | Qualquer outra necessidade que o hóspede tenha        |
     
