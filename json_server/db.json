@@ -1,0 +1,90 @@
+{
+  "users": [
+    {
+      "email": "maria@gmail.com",
+      "password": "$2a$10$pOE33yaGpC/zt7bAv6ziYuJVIyKlGLY4ydUmjtpbklNR4ZU5kTdTS",
+      "id": 1,
+      "name": "Maria",
+      "lastname": "Souza",
+      "birthdate": "1999-02-04"
+    },
+    {
+      "email": "marcos@gmail.com",
+      "password": "$2a$10$mwXLCDm09uwn5P0.aRBMU.gzt2Wf.fwnLArsWcu7J/XnSpJ7MKgCi",
+      "id": 2,
+      "name": "Marcos",
+      "lastname": "Freitas",
+      "birthdate": "1997-12-14"
+    },
+    {
+      "email": "luiza@gmail.com",
+      "password": "$2a$10$DZKQ6miICNaAZpRAO2iQXe5GvtGS81Q5SaF58jnzylxGiJNNv3qwm",
+      "id": 3,
+      "name": "Luiza",
+      "lastname": "Alves",
+      "birthdate": "2000-12-14"
+    }
+  ],
+  "payment": [
+    {
+      "id": 1,
+      "type": "pix"
+    },
+    {
+      "id": 2,
+      "type": "debito"
+    },
+    {
+      "id": 3,
+      "type": "credito"
+    },
+    {
+      "id": 4,
+      "type": "boleto"
+    }
+  ],
+  "booking": [
+    {
+      "id": 1,
+      "userId": 3,
+      "payment": {
+        "paymentid": 2,
+        "totalprice": 111,
+        "depositpaid": true
+      },
+      "bookingdates": {
+        "checkin": "2018-01-01",
+        "checkout": "2019-01-01"
+      },
+      "additionalneeds": "Cafe da manha"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "payment": {
+        "paymentid": 1,
+        "totalprice": 200,
+        "depositpaid": true
+      },
+      "bookingdates": {
+        "checkin": "2022-05-10",
+        "checkout": "2022-07-12"
+      },
+      "additionalneeds": "Ar condicionado"
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "payment": {
+        "paymentid": 4,
+        "totalprice": 400,
+        "depositpaid": true
+      },
+      "bookingdates": {
+        "checkin": "2022-05-10",
+        "checkout": "2022-07-12"
+      },
+      "additionalneeds": "Ar condicionado"
+    }
+  ]
+}
